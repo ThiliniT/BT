@@ -5,37 +5,22 @@
     "ttm": {
       "type": "object",
       "properties": {
-        "usecase3": {
+        "usecase8": {
           "type": "object",
           "properties": {
-            "REFRESH_TOKEN": {
+            "serviceUrl1": {
               "type": "string",
               "description": ""
             },
-            "BASE_URL": {
-              "type": "string",
-              "description": ""
-            },
-            "REFRESH_URL": {
-              "type": "string",
-              "description": ""
-            },
-            "CLIENT_ID": {
-              "type": "string",
-              "description": ""
-            },
-            "CLIENT_SECRET": {
+            "serviceUrl2": {
               "type": "string",
               "description": ""
             }
           },
           "additionalProperties": false,
           "required": [
-            "REFRESH_TOKEN",
-            "BASE_URL",
-            "REFRESH_URL",
-            "CLIENT_ID",
-            "CLIENT_SECRET"
+            "serviceUrl1",
+            "serviceUrl2"
           ]
         }
       },

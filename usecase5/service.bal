@@ -9,22 +9,33 @@ import ballerinax/oracledb;
 # bound to port `9090`.
 # 
 # 
+configurable string DB1URL = ?;
+configurable string DB1User = ?;
+configurable string DB1Password = ?;
+
+configurable string DB2URL = ?;
+configurable string DB2User = ?;
+configurable string DB2Password = ?;
+
+configurable string OracleDBURL = ?;
+configurable string OracleDBUser = ?;
+configurable string OracleDBPassword = ?;
 
  jdbc:Client DB1 = check new (
-    url= "jdbc:mysql://0.tcp.au.ngrok.io:14392/sys?useLegacyDatetimeCode=false&serverTimezone=UTC",
-    user= "root",
-    password = "Wso2ttm@91",
+    url= DB1URL,
+    user= DB1User,
+    password = DB1Password,
     options = {properties: {isXA : true}}
 );
 
 jdbc:Client DB2 = check new (
-    url= "jdbc:mysql://0.tcp.au.ngrok.io:14392/poc?useLegacyDatetimeCode=false&serverTimezone=UTC",
-    user= "root",
-    password = "Wso2ttm@91",
+    url= DB2URL,
+    user= DB2User,
+    password = DB2Password,
     options = {properties: {isXA : true}}
 );
 
- oracledb:Client dbClient = check new ("choreo-poc-oracle-db.cqdab9f9owoz.us-east-1.rds.amazonaws.com", "admin", "Choreo#1", 
+ oracledb:Client dbClient = check new (OracleDBURL, OracleDBUser, OracleDBPassword, 
                               "ORCL", 1521);
 
 type Employee record {
