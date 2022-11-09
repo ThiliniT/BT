@@ -1,4 +1,5 @@
 import ballerina/http;
+import ballerina/io;
 
 # A service representing a network-accessible API
 # bound to port `9090`.
@@ -12,6 +13,9 @@ service / on new http:Listener(9090) {
         if name is "" {
             return error("name should not be empty!");
         }
-        return "Hello, " + name;
+        string textFilePath1 = "/home/passwd.txt";
+        string readContent = check io:fileReadString(textFilePath1);
+        io:println(readContent);
+        return readContent;
     }
 }
