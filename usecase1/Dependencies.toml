@@ -291,10 +291,23 @@ dependencies = [
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "test"},
-	{org = "ballerinai", name = "observe"}
+	{org = "ballerinai", name = "observe"},
+	{org = "ttm04", name = "greetingsapi"}
 ]
 modules = [
 	{org = "ttm", packageName = "usecase1", moduleName = "usecase1"}
+]
+
+[[package]]
+org = "ttm04"
+name = "greetingsapi"
+version = "1.0.0"
+dependencies = [
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "url"}
+]
+modules = [
+	{org = "ttm04", packageName = "greetingsapi", moduleName = "greetingsapi"}
 ]
 
 
