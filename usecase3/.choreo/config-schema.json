@@ -11,11 +11,31 @@
             "REFRESH_TOKEN": {
               "type": "string",
               "description": ""
+            },
+            "BASE_URL": {
+              "type": "string",
+              "description": ""
+            },
+            "REFRESH_URL": {
+              "type": "string",
+              "description": ""
+            },
+            "CLIENT_ID": {
+              "type": "string",
+              "description": ""
+            },
+            "CLIENT_SECRET": {
+              "type": "string",
+              "description": ""
             }
           },
           "additionalProperties": false,
           "required": [
-            "REFRESH_TOKEN"
+            "REFRESH_TOKEN",
+            "BASE_URL",
+            "REFRESH_URL",
+            "CLIENT_ID",
+            "CLIENT_SECRET"
           ]
         }
       },
