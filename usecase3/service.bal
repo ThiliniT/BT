@@ -56,14 +56,14 @@ resource function post ada(@http:Payload json details) returns json|http:NotFoun
             do {
                 io:println(line);
                 count2+=1;
-
             };
-            if(count2>0)
-            {
-                return {"profile": { "email": email}};
-            }
+        if(count2>0)
+        {
+            return {"profile": { "email": email}};
+        }
            
     }
+
     http:NotFound nf = { body: { msg: {"profile": "Not Found"}} };
     return nf;
 
