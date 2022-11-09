@@ -5,27 +5,22 @@
     "ttm": {
       "type": "object",
       "properties": {
-        "usecase1": {
+        "usecase8": {
           "type": "object",
           "properties": {
-            "serviceUrl": {
+            "serviceUrl1": {
               "type": "string",
               "description": ""
             },
-            "clientSecret": {
-              "type": "string",
-              "description": ""
-            },
-            "clientId": {
+            "serviceUrl2": {
               "type": "string",
               "description": ""
             }
           },
           "additionalProperties": false,
           "required": [
-            "serviceUrl",
-            "clientSecret",
-            "clientId"
+            "serviceUrl1",
+            "serviceUrl2"
           ]
         }
       },
