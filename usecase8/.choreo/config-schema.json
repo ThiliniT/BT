@@ -1,6 +1,31 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "ttm": {
+      "type": "object",
+      "properties": {
+        "usecase8": {
+          "type": "object",
+          "properties": {
+            "serviceUrl1": {
+              "type": "string",
+              "description": ""
+            },
+            "serviceUrl2": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "serviceUrl1",
+            "serviceUrl2"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "additionalProperties": false
 }
