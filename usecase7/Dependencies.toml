@@ -272,6 +272,17 @@ dependencies = [
 ]
 
 [[package]]
+org = "ballerina"
+name = "xslt"
+version = "2.2.2"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"}
+]
+modules = [
+	{org = "ballerina", packageName = "xslt", moduleName = "xslt"}
+]
+
+[[package]]
 org = "ballerinai"
 name = "observe"
 version = "0.0.0"
@@ -291,6 +302,7 @@ dependencies = [
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "test"},
+	{org = "ballerina", name = "xslt"},
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
