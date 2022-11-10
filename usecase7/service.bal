@@ -1,17 +1,21 @@
 import ballerina/http;
+import ballerina/xslt;
+import ballerina/io;
 
 # A service representing a network-accessible API
 # bound to port `9090`.
 service / on new http:Listener(9090) {
 
-    # A resource for generating greetings
-    # + name - the input string name
-    # + return - string name with hello message or error
-    resource function get greeting(string name) returns string|error {
-        // Send a response back to the caller.
-        if name is "" {
-            return error("name should not be empty!");
-        }
-        return "Hello, " + name;
+    resource function post greeting/hello(@http:Payload xml param) returns xml|error? {
+    xml xsl = check getXsl();
+    xml target = check xslt:transform(param, xsl);
+    return target;
+
     }
+}
+
+
+function getXsl() returns xml|error {
+    return  check io:fileReadXml("./inputs/inputxsl.xml");
+       
 }

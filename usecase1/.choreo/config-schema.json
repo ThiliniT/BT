@@ -1,6 +1,36 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "ttm": {
+      "type": "object",
+      "properties": {
+        "usecase1": {
+          "type": "object",
+          "properties": {
+            "serviceUrl": {
+              "type": "string",
+              "description": ""
+            },
+            "clientSecret": {
+              "type": "string",
+              "description": ""
+            },
+            "clientId": {
+              "type": "string",
+              "description": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "serviceUrl",
+            "clientSecret",
+            "clientId"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "additionalProperties": false
 }
