@@ -7,48 +7,59 @@ import ballerinax/oracledb;
 
 # A service representing a network-accessible API
 # bound to port `9090`.
-# 
-# 
+#
+#
+configurable string DB1URL = ?;
+configurable string DB1User = ?;
+configurable string DB1Password = ?;
 
- jdbc:Client DB1 = check new (
-    url= "jdbc:mysql://0.tcp.au.ngrok.io:14392/sys?useLegacyDatetimeCode=false&serverTimezone=UTC",
-    user= "root",
-    password = "Wso2ttm@91",
-    options = {properties: {isXA : true}}
+configurable string DB2URL = ?;
+configurable string DB2User = ?;
+configurable string DB2Password = ?;
+
+configurable string OracleDBURL = ?;
+configurable string OracleDBUser = ?;
+configurable string OracleDBPassword = ?;
+
+jdbc:Client DB1 = check new (
+    url = DB1URL,
+    user = DB1User,
+    password = DB1Password,
+    options = {properties: {isXA: true}}
 );
 
 jdbc:Client DB2 = check new (
-    url= "jdbc:mysql://0.tcp.au.ngrok.io:14392/poc?useLegacyDatetimeCode=false&serverTimezone=UTC",
-    user= "root",
-    password = "Wso2ttm@91",
-    options = {properties: {isXA : true}}
+    url = DB2URL,
+    user = DB2User,
+    password = DB2Password,
+    options = {properties: {isXA: true}}
 );
 
- oracledb:Client dbClient = check new ("choreo-poc-oracle-db.cqdab9f9owoz.us-east-1.rds.amazonaws.com", "admin", "Choreo#1", 
-                              "ORCL", 1521);
+oracledb:Client dbClient = check new (OracleDBURL, OracleDBUser, OracleDBPassword,
+                            "ORCL", 1521);
 
 type Employee record {
 
-        int EmployeeId;
-        string FirstName;
-        string LastName;
-        string Email;
-        string Phone;
-        string Hiredate;
+    int EmployeeId;
+    string FirstName;
+    string LastName;
+    string Email;
+    string Phone;
+    string Hiredate;
 };
-
 
 // The initialization expression of an `isolated` variable
 // has to be an `isolated` expression, which itself will be
 // an `isolated` root.
 isolated string dbLog = "";
+
 service / on new http:Listener(9090) {
 
-resource function get employees() returns error|Employee[]? {
+    resource function get employees() returns error|Employee[]? {
 
         Employee[] empArr = [];
 
-       stream<Employee, sql:Error?> resultStream = dbClient->query(`SELECT * FROM EMPLOYEE`);
+        stream<Employee, sql:Error?> resultStream = dbClient->query(`SELECT * FROM EMPLOYEE`);
 
         check from Employee emp in resultStream
             do {
@@ -61,9 +72,8 @@ resource function get employees() returns error|Employee[]? {
 
     }
 
-resource function put employees/[int id](int phoneno)  returns error|string? {
+    resource function put employees/[int id](int phoneno) returns error|string? {
 
-     
         var ret = DB1->execute(`CREATE TABLE EMPLOYEE
         (EMPLOYEEID INT AUTO_INCREMENT,
         FIRSTNAME VARCHAR(30),
@@ -73,10 +83,9 @@ resource function put employees/[int id](int phoneno)  returns error|string? {
         SALARY INT,
         PRIMARY KEY (EMPLOYEEID)
         )`);
-        
+
         handleUpdate(ret, "Create Employee table in DB1");
 
-    
         transaction {
             error? updateResult = update();
             ret = check DB1->execute(`UPDATE Employee SET phone = ${phoneno} WHERE EMPLOYEEID = ${id}`);
@@ -88,44 +97,43 @@ resource function put employees/[int id](int phoneno)  returns error|string? {
             } else {
                 io:println("Insert to student table failed: ");
             }
-                
+
             ret = check DB2->execute(`UPDATE Employee SET phone = ${phoneno}  WHERE EMPLOYEEID = ${id}`);
             handleUpdate(ret, "update value in DB2");
-            
+
             check commit;
+        }
+
+        string temp = "";
+        lock {
+            temp = dbLog;
+        }
+
+        return temp;
     }
 
-            string temp ="";
-            lock {
-                temp = dbLog;
-            }
-            
-            return temp;
 }
-   
-}
+
 transactional function update() returns error? {
     // Registers a commit handler to be invoked when `commit` is executed.
     transaction:onCommit(successLog);
     transaction:onRollback(logError);
 }
 
-
-isolated  function successLog('transaction:Info info) {
+isolated function successLog('transaction:Info info) {
     io:println("Transaction success");
-    lock{
+    lock {
         dbLog = "Transaction successful";
     }
-   
-  
+
 }
 
-isolated function logError(transaction:Info info, error? cause, boolean willRetry){
+isolated function logError(transaction:Info info, error? cause, boolean willRetry) {
     io:println("Logged database update failure");
-     lock{
+    lock {
         dbLog = "Logged database update failure";
     }
-    
+
 }
 
 function handleUpdate(sql:ExecutionResult|error returned, string message) {
@@ -135,12 +143,4 @@ function handleUpdate(sql:ExecutionResult|error returned, string message) {
         io:println(message, " failed: ", <string>returned.message());
     }
 }
-
-
-    
-
-
-
-
-
 
