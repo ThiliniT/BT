@@ -6,3 +6,23 @@ distribution = "2201.1.2"
 
 [build-options]
 observabilityIncluded = true
+
+[[platform.java11.dependency]]
+groupId = "com.oracle.database.jdbc"
+artifactId = "ojdbc8"
+version = "12.2.0.1"
+
+[[platform.java11.dependency]]
+groupId = "com.oracle.database.xml"
+artifactId = "xdb"
+version = "21.1.0.0"
+
+[[platform.java11.dependency]]
+groupId = "com.oracle.database.xml"
+artifactId = "xmlparserv2"
+version = "12.2.0.1"
+
+[[platform.java11.dependency]]
+groupId = "com.microsoft.sqlserver"
+artifactId = "mssql-jdbc"
+version = "9.2.0.jre11"

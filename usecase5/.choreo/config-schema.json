@@ -1,66 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {
-    "ttm": {
-      "type": "object",
-      "properties": {
-        "usecase5": {
-          "type": "object",
-          "properties": {
-            "DB1URL": {
-              "type": "string",
-              "description": ""
-            },
-            "DB1User": {
-              "type": "string",
-              "description": ""
-            },
-            "DB1Password": {
-              "type": "string",
-              "description": ""
-            },
-            "DB2URL": {
-              "type": "string",
-              "description": ""
-            },
-            "DB2User": {
-              "type": "string",
-              "description": ""
-            },
-            "DB2Password": {
-              "type": "string",
-              "description": ""
-            },
-            "OracleDBURL": {
-              "type": "string",
-              "description": ""
-            },
-            "OracleDBUser": {
-              "type": "string",
-              "description": ""
-            },
-            "OracleDBPassword": {
-              "type": "string",
-              "description": ""
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "DB1URL",
-            "DB1User",
-            "DB1Password",
-            "DB2URL",
-            "DB2User",
-            "DB2Password",
-            "OracleDBURL",
-            "OracleDBUser",
-            "OracleDBPassword"
-          ]
-        }
-      },
-      "additionalProperties": false
-    }
-  },
+  "properties": {},
   "additionalProperties": false
 }
