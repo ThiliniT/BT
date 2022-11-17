@@ -4,11 +4,24 @@ import ballerina/sql;
 import ballerinax/oracledb;
 import ballerinax/mssql;
 
+configurable string OracleDBURL = ?;
+configurable string OraclsDB = ?;
+configurable string OracleUsername = ?;
+configurable string OraclePWD = ?;
+configurable string OracleDBName = ?;
+configurable int OraclePort = ?;
 
-oracledb:Client dbClientODB = check new ("choreo-poc-oracle-db.cqdab9f9owoz.us-east-1.rds.amazonaws.com", "admin", "Choreo#1", "ORCL", 1521, options = {useXADatasource: true}
+configurable string MSSQLDBURL = ?;
+configurable string MSSQLDB = ?;
+configurable string MSSQLUsername = ?;
+configurable string MSSQLPWD = ?;
+configurable string MSSQLDBName = ?;
+configurable int MSSQLPort = ?;
+
+oracledb:Client dbClientODB = check new (OracleDBURL, OracleUsername, OraclePWD, OracleDBName, OraclePort, options = {useXADatasource: true}
     );
 
-mssql:Client dbClientMSDB = check new ("choreo-poc-sql-db.cqdab9f9owoz.us-east-1.rds.amazonaws.com", "admin", "Choreo#1", "master", 1433,
+mssql:Client dbClientMSDB = check new (MSSQLDBURL, MSSQLUsername, MSSQLPWD, MSSQLDBName, MSSQLPort,
                                 connectionPool = {maxOpenConnections: 1},
                                 options = {useXADatasource: true});
 
@@ -43,9 +56,9 @@ service / on new http:Listener(9090) {
 
         transaction {
 
-            sql:ExecutionResult sqlResult = check dbClientODB->execute(`UPDATE Employee SET phone = ${phoneno} WHERE EMPLOYEEID = ${id}`);
+            sql:ExecutionResult sqlResult1 = check dbClientODB->execute(`UPDATE Employee SET phone = ${phoneno} WHERE EMPLOYEEID = ${id}`);
 
-            sqlResult = check dbClientMSDB->execute(`UPDATE choreo.dbo.Employees SET phone = ${phoneno} WHERE EMPLOYEEID = ${id}`);
+            sql:ExecutionResult sqlResult2 = check dbClientMSDB->execute(`UPDATE choreo.dbo.Employees SET phone = ${phoneno} WHERE EMPLOYEEID = ${id}`);
 
             check commit;
         }
@@ -53,6 +66,9 @@ service / on new http:Listener(9090) {
             io:println(e.message());
             io:println("transaction failed");
         }
+
+        check dbClientODB.close();
+        check dbClientMSDB.close();
 
     }
 

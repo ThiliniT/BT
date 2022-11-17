@@ -1,6 +1,81 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "ttm": {
+      "type": "object",
+      "properties": {
+        "usecase5": {
+          "type": "object",
+          "properties": {
+            "OracleDBURL": {
+              "type": "string",
+              "description": ""
+            },
+            "OraclsDB": {
+              "type": "string",
+              "description": ""
+            },
+            "OracleUsername": {
+              "type": "string",
+              "description": ""
+            },
+            "OraclePWD": {
+              "type": "string",
+              "description": ""
+            },
+            "OracleDBName": {
+              "type": "string",
+              "description": ""
+            },
+            "OraclePort": {
+              "type": "integer",
+              "description": ""
+            },
+            "MSSQLDBURL": {
+              "type": "string",
+              "description": ""
+            },
+            "MSSQLDB": {
+              "type": "string",
+              "description": ""
+            },
+            "MSSQLUsername": {
+              "type": "string",
+              "description": ""
+            },
+            "MSSQLPWD": {
+              "type": "string",
+              "description": ""
+            },
+            "MSSQLDBName": {
+              "type": "string",
+              "description": ""
+            },
+            "MSSQLPort": {
+              "type": "integer",
+              "description": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "OracleDBURL",
+            "OraclsDB",
+            "OracleUsername",
+            "OraclePWD",
+            "OracleDBName",
+            "OraclePort",
+            "MSSQLDBURL",
+            "MSSQLDB",
+            "MSSQLUsername",
+            "MSSQLPWD",
+            "MSSQLDBName",
+            "MSSQLPort"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "additionalProperties": false
 }
