@@ -7,15 +7,14 @@ import ballerina/io;
 service / on new http:Listener(9090) {
 
     resource function post greeting/hello(@http:Payload xml param) returns xml|error? {
-    xml xsl = check getXsl();
-    xml target = check xslt:transform(param, xsl);
-    return target;
+        xml xsl = check getXsl();
+        xml target = check xslt:transform(param, xsl);
+        return target;
 
     }
 }
 
-
 function getXsl() returns xml|error {
-    return  check io:fileReadXml("./inputs/inputxsl.xml");
-       
+    return check io:fileReadXml("./inputs/inputxsl.xml");
+
 }

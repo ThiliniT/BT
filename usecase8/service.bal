@@ -4,6 +4,7 @@ import ballerina/io;
 
 configurable string serviceUrl1 = ?;
 configurable string serviceUrl2 = ?;
+
 service / on new http:Listener(9090) {
 
     resource function post greeting(@http:Payload json payload) returns json|http:Accepted|http:InternalServerError|error {
